@@ -9,6 +9,7 @@ if(isset($_GET['url'])){
             return require_once('./ajax/usuarioAjax.php');
             break;
         
+            
 
         case 'menu':
             return require_once('./ajax/menuAjax.php');

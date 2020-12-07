@@ -1,6 +1,6 @@
 <?php
 
-class DetalleFactura{
+class DetalleFactura extends MainModel{
 
     private $idmov_detalle_factura;
     private $cantidad;
@@ -16,7 +16,7 @@ class DetalleFactura{
         
     }
 
-    public function __construct1($idmov_detalle_factura,$cantidad,$detalle,$total,$iva,$total_pagar,$id_factura,$id_main)
+    public function setData($idmov_detalle_factura,$cantidad,$detalle,$total,$iva,$total_pagar,$id_factura,$id_main)
     {
         $this->idmov_detalle_factura=$idmov_detalle_factura;
         $this->cantidad=$cantidad;
@@ -28,7 +28,7 @@ class DetalleFactura{
         $this->id_main=$id_main;
         
     }
-    public function __construct2($data)
+    public function setData1($data)
     {
         $this->idmov_detalle_factura=$data['idmov_detalle_factura'];
         $this->cantidad=$data['cantidad'];
@@ -106,4 +106,19 @@ class DetalleFactura{
         return $this->id_main;
     }
     
+
+    public function save(){
+        $statement="INSERT INTO mov_detalle_factura(cantidad,detalle,total,iva,total_pagar,id_factura,id_main)
+        values(:Cantidad,:Detalle,:Total,:Iva,:Id_factura,:Id_main)";
+        $sql = MainModel::getConection()->prepare($statement);
+        $sql->bindParam(":Cantidad",$this->getCantidad());
+        $sql->bindParam(":Detalle",$this->getDetalle());
+        $sql->bindParam(":Total",$this->getTotal());
+        $sql->bindParam(":Iva",$this->getIva());
+        $sql->bindParam(":Id_factura",$this->getId_factura());
+        $sql->bindParam(":Id_main",$this->getId_main());
+        $sql->execute();
+        return $sql->rowCount();
+    }
+   
 }

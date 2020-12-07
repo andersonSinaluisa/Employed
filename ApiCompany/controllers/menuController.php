@@ -1,18 +1,11 @@
 <?php
 
-require_once('./models/confMainModel.php');
-require_once('./class/MenuEmpresa.php');
-require_once('./class/PermisoMenu.php');
-require_once('./class/Menu.php');
-require_once('./class/SESSION.php');
-require_once('./class/MenuEmpresa.php');
-require_once('./models/menuModel.php');
-require_once('./models/sesionModel.php');
+require_once('./core/mainModel.php');
+require_once('./class/mov/Sesion.php');
 
-
-class MenuController extends MenuModel
+class MenuController 
 {
-    public function getMenusEmpresaController()
+   /* public function getMenusEmpresaController()
     {
         session_start(['name' => SESSION]);
 
@@ -78,7 +71,7 @@ class MenuController extends MenuModel
         }
 
         return json_encode($dataMenus, JSON_UNESCAPED_UNICODE);
-    }
+    }*/
 
     public function getMenusController($token,$id_usuario)
     {
@@ -86,7 +79,7 @@ class MenuController extends MenuModel
         $id_usuario=MainModel::clearString($id_usuario);
         if($token!=null || $token !='' &&  $id_usuario!=''){
 
-            $session = new SesionModel();
+            $session = new Sesion();
             $resultSesion = $session->getSesion($id_usuario,$token);
             if($resultSesion->rowCount()>0){
                 $result = MenuModel::getModulosModel();
@@ -136,7 +129,7 @@ class MenuController extends MenuModel
         return json_encode($dataModulos,JSON_UNESCAPED_UNICODE);
     }
 
-
+/*
     public function getMenuConf()
     {
         $value = false;
@@ -285,5 +278,5 @@ class MenuController extends MenuModel
         }
 
         return $array;
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Accion{
+require_once('./core/mainModel.php');
+class Accion extends MainModel{
 
     private $id;
     private $accion;
@@ -11,13 +12,13 @@ class Accion{
         
     }
 
-    public function __construct1($id,$accion,$estado)
+    public function setData($id,$accion,$estado)
     {
         $this->id=$id;
         $this->accion=$accion;
         $this->estado=$estado;
     }
-    public function __construct2($data)
+    public function setData1($data)
     {
         $this->id=$data['id'];
         $this->accion=$data['accion'];
@@ -46,5 +47,15 @@ class Accion{
 
     public function getEstado(){
         return $this->estado;
+    }
+
+    public function save(){
+        $statement = "INSERT INTO conf_accion(accion,estado)
+        values(:Accion,:Estado)";
+        $sql = MainModel::getConection()->prepare($statement);
+        $sql->bindParam(":Accion",$this->getAccion());
+        $sql->bindParam(":Estado",$this->getEstado());
+        $sql->execute();
+        return $sql->rowCount();
     }
 }

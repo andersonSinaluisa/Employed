@@ -227,7 +227,7 @@ class MainModel {
         return $final_value;
     }
 
-    protected static function getIp(){
+    public static function getIpClient(){
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip_client = $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
